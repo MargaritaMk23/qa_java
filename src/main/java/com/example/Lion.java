@@ -1,32 +1,33 @@
 package com.example;
-
 import java.util.List;
+
 
 public class Lion {
 
-    boolean hasMane;
+    private Predator predator;
+    private boolean hasMane; // имеет ли гриву
 
-    public Lion(String sex) throws Exception {
-        if ("Самец".equals(sex)) {
+    public Lion(String gender, Predator predator) throws Exception {
+        this.predator = predator;
+
+        if (gender.equals("Самец")) {
             hasMane = true;
-        } else if ("Самка".equals(sex)) {
+        } else if (gender.equals("Самка")) {
             hasMane = false;
         } else {
-            throw new Exception("Используйте допустимые значения пола животного - самей или самка");
+            throw new Exception("Используйте допустимые значения пола");
         }
     }
 
-    Feline feline = new Feline();
-
     public int getKittens() {
-        return feline.getKittens();
+        return ((Feline) predator).getKittens(); // Приведение типов, Feline содержит метод
+    }
+
+    public List<String> getFood() throws Exception {
+        return predator.eatMeat();
     }
 
     public boolean doesHaveMane() {
         return hasMane;
-    }
-
-    public List<String> getFood() throws Exception {
-        return feline.getFood("Хищник");
     }
 }
